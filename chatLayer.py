@@ -10,6 +10,7 @@ client = zulip.Client(**opts)
 client.add_subscriptions([{"name": "arcadebot"}])
 
 messageCallbacks = []
+commandCallbacks = {}
 
 def sendPubMessage(subj, message):
   client.send_message({
@@ -42,16 +43,30 @@ def recvMessage(message):
   if not message['sender_email'] == opts['email']:
     matched = re.match(r'.*?`([^`]+)`.*', message['content'])
     if matched:
+      msg = matched.group(1)
+      words = msg.split(" ")
       parsedMsg = {
-        "message": matched.group(1),
-        "raw": message
+        "message": msg,
+        "command": words[0],
+        "args": words[1:],
+        "raw": message,
       }
       for callback in messageCallbacks:
         callback(parsedMsg)
+      if words[0] in commandCallbacks:
+        for callback in commandCallbacks[words[0]]:
+          callback(parsedMsg)
 
 def messageHandler(fun):
   messageCallbacks.append(fun)
   return fun
+
+def commandHandler(commandArray):
+  def commandHandlerDecorator(fun):
+    for command in commandArray:
+      commandCallbacks.setdefault(command,[]).append(fun)
+    return fun
+  return commandHandlerDecorator
 
 def mainLoop():
   client.call_on_each_message(recvMessage)

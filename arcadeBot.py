@@ -1,15 +1,23 @@
-from chatLayer import messageHandler, talkativeFunction, mainLoop
+from chatLayer import messageHandler, commandHandler, talkativeFunction, mainLoop
 
-
-
+@talkativeFunction
+@commandHandler(["bet", "check"])
+def bet(message):
+  print 'got a betting message'
+  return {'subject':'some poker game', 'message':'You ' + message['command']},None
+  
+    
 
 @messageHandler
-def sysMsgs(message)
-  if msg.
+def sysMsgs(message):
+  print 'got a message here'
+  return message['raw']['sender_email']
+      #[u'recipient_id', u'sender_email', u'timestamp', u'display_recipient', u'sender_id', u'sender_full_name', u'sender_domain', u'content', u'gravatar_hash', u'avatar_url', u'client', u'content_type', u'subject_links', u'sender_short_name', u'type', u'id', u'subject']
+ 
 
 class Gamedef:
   def __init__(self, gamename):
-    self.gamename = 
+    self.gamename = gamename 
 
   def Start(self, fun):
     games.append(self)

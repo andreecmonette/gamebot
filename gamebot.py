@@ -27,9 +27,79 @@ whose turn is it?
 ##a game may append items to the user's statistics for that game, and the game may have methods for displaying such statistics on request
 ##`stat poker`
 
+## when we create a game we put it int
+
+
+gamebotParseList = {};
+gamedefs = {};
+
 
 def main():
-  zulipEndpoint = "HARDCODED ZULIP STUFF HERE"
+
+def recv_message(message):
+  
+
+class Game:
+  def __init__(self):
+    self.state = GameState()
+    self.actions = []
+    self.stream = ""
+
+class GameState:
+  def __init__(self):
+    self.tokens = []
+    self.players = {}
+  
+  def addToken(TokenClass, player = None,  *args):
+    self.tokens.append(TokenClass(*args))
+    if player is not None:
+      token.player = player
+
+
+class Gamedef:
+  def __init__(self, gameName):
+    self.gameName = gameName
+    gamedefs[gameName] = self
+
+  def Start(fun):
+    def beginGame():
+
+    gamebotParseList["play " + self.gameName] = fun
+    return fun
+
+  def Action(fun):
+    def ActionDecorator(word_list):
+      for word in word_list:
+        gamebotParseList[word] = fun
+      return fun
+    return ActionDecorator
+
+  def Player(cls):
+
+
+
+
+def genNewGameId():
+  return uuid4()
+
+def recv_message(msg):
+  pass
+#Looks to see if there is a message in `backticks`
+#If not, do nothing
+#If so, pass on to 
+
+
+
+
+
+def gameLoop():
+  while True:
+    nextturn(state)
+    if checkGameOver(state):
+      return state
+  
+
+
 
 
 
