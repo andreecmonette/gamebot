@@ -12,13 +12,19 @@ client.add_subscriptions([{"name": "arcadebot"}])
 messageCallbacks = []
 commandCallbacks = {}
 
+class ZulipException(Exception):
+    pass
+
 def sendPubMessage(subj, message):
-  client.send_message({
+  result = client.send_message({
     "type": "stream",
     "to": "arcadebot",
     "subject": subj,
     "content": message
   })
+  if result['result'] == 'error':
+      raise ZulipException(result['msg'])
+
 
 def sendPrivMessage(recipients, message):
   client.send_message({
@@ -26,6 +32,8 @@ def sendPrivMessage(recipients, message):
     "to": recipients,
     "content": message
   })
+  if result['result'] == 'error':
+      raise ZulipException(result['msg'])
 
 def talkativeFunction(fun):
   def talkingFun(*args, **kwargs):
