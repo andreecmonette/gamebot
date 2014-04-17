@@ -2,14 +2,12 @@ from gamebot import Gamedef
 
 game = Gamedef("poker")
 
-
 @game.Start
 def init(state, msg):
   pass
 
 @game.Action(["deal"])
 def deal(state, msg, options):
-
 
 @game.Action(["bet", "check"])
 def bet(state, msg, options):

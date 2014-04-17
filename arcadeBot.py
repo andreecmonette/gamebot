@@ -1,5 +1,6 @@
 from chatLayer import messageHandler, commandHandler, talkativeFunction, mainLoop
 
+
 @commandHandler(["bet", "check"])
 @talkativeFunction
 def bet(message):
@@ -16,10 +17,20 @@ def sysMsgs(message):
 class Gamedef:
   def __init__(self, gamename):
     self.gamename = gamename
+    self.games = {}
+  
 
   def Start(self, fun):
-    games.append(self)
-    fun()
+    @commandHandler([gamename])
+    @talkativeFunction
+    def gameMsg(msg):
+      if message['raw']['type'] == "private":
+        ## TODO: validate initial game state
+        fun.
+      
+
+    return startGame
+
 
   def Action(self, commands):
     @commandHandler(commands)
@@ -31,12 +42,6 @@ class Gamedef:
 
   def Token(self):
     pass
-
-
-
-
-
-
 
 
 @talkativeFunction
